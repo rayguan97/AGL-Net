@@ -1,0 +1,40 @@
+defaults:
+  - data: kitti_lidar
+  - model/image_encoder: resnet_fpn
+  - training
+  - _self_
+model:
+  name: orienternet_lidar
+  latent_dim: 128
+  matching_dim: 8
+  z_max: 32
+  x_max: 32
+  pixel_per_meter: ${data.pixel_per_meter}
+  crop_size_meters: ${data.crop_size_meters}
+  num_scale_bins: 33
+  num_rotations: 64
+  image_encoder:
+    backbone:
+      encoder: resnet101
+  map_encoder:
+    embedding_dim: 16
+    output_dim: ${..matching_dim}
+    num_classes: ${data.num_classes}
+    backbone:
+      encoder: vgg19
+      pretrained: false
+      output_scales: [0]
+      num_downsample: 3
+      decoder: [128, 64, 64]
+      padding: replicate
+    unary_prior: false
+  voxel_encoder:
+    feat_channels: (${..latent_dim}, )
+    point_cloud_range: [0, -39.68, -3, 69.12, 39.68, 1]
+  bev_net:
+    num_blocks: 4
+    latent_dim: ${..latent_dim}
+    output_dim: ${..matching_dim}
+    confidence: true
+
+resume: false

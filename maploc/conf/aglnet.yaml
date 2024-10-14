@@ -1,0 +1,61 @@
+defaults:
+  - data: carla
+  - model/image_encoder: resnet_fpn
+  - training
+  - _self_
+model:
+  name: aglnet
+  latent_dim: 32
+  lidar_dim: 16
+  matching_dim: 8
+  v_max: 32
+  u_max: 32
+  pixel_per_meter: ${data.pixel_per_meter}
+  num_scale_bins: 33
+  num_rotations: 64
+  crop_size_meters: ${data.crop_size_meters}
+  image_encoder:
+    backbone:
+      encoder: resnet50
+      output_dim: ${...latent_dim}
+      remove_stride_from_first_conv: true
+  map_encoder:
+    embedding_dim: ${..latent_dim}
+    output_dim: ${..matching_dim}
+    backbone:
+      encoder: vgg19
+      pretrained: false
+      output_scales: [0]
+      num_downsample: 3
+      decoder: [32, 16, 16]
+      padding: replicate
+    unary_prior: false
+  point_encoder:
+    num_points: (${data.max_num_pts}, 1024, 512, 256)
+    radius: [0.2, 0.4, 0.8, 1.2]
+    num_samples: [64, 32, 16, 16]
+    sa_channels: [[64, 64, 128], [128, 128, 256], [128, 128, 256],
+                     [128, 128, 256]]
+    fp_channels: [[256, 256], [256, 256], [256, 256]]
+  voxel_encoder:
+    feat_channels: (${..lidar_dim}, )
+    point_cloud_range: ${data.point_cloud_range}
+  attn:
+    num_attn_layers: 2
+    global_channels: ${..lidar_dim}
+    local_channels: 0
+    num_centers: [32, 16]
+    num_heads: 4
+    # vfe:
+    #   voxel_size:
+    #   grid_size:
+    # backbone_3d:
+    # map_to_bev: 
+    # backbone_2d:
+  bev_net:
+    num_blocks: 4
+    latent_dim: ${..lidar_dim}
+    output_dim: ${..matching_dim}
+    confidence: true
+
+resume: false

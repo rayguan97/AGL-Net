@@ -1,0 +1,30 @@
+name: carla
+split: splits_carla_loc.json
+loading:
+  train:
+    batch_size: 4
+    # batch_size: 24 (4 x A6000 gpus, with crop 128)
+    num_workers: 4
+  val:
+    batch_size: 4
+    num_workers: 4
+pixel_per_meter: 1
+crop_size_meters: 512
+max_init_error: 128
+max_init_error_rotation: 4
+add_map_mask: false
+mask_pad: 2
+oc_intrinsic_diff: false
+pre_load_points: false
+pre_load_tiles: false
+max_active_managers: 50
+overhead_map_size: 5000
+max_num_pts: 4096
+point_cloud_range: [-100, -100, -10, 100, 100, 20]
+use_voxel: true
+voxel_size: [2, 2, 31]
+pts_per_voxel: 100
+max_voxels: 2048
+filter_up: true
+filter_down: true
+aug_scale: 0.7
