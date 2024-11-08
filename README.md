@@ -38,7 +38,13 @@ conda activate aglnet
 
 pip install torch==2.0.0 torchvision==0.15.1 torchaudio==2.0.1 --index-url https://download.pytorch.org/whl/cu118
 
-pip install numpy opencv-python Pillow tqdm matplotlib plotly scipy omegaconf hydra-core pytorch-lightning torchmetrics jupyter lxml rtree httpx aiolimiter scikit-learn urllib3 open3d tensorboard fpsample einops
+pip install numpy opencv-python Pillow tqdm matplotlib plotly scipy omegaconf hydra-core pytorch-lightning torchmetrics jupyter lxml rtree httpx aiolimiter scikit-learn urllib3 open3d tensorboard fpsample einops scikit-image
+
+pip install -U openmim
+mim install mmengine
+mim install 'mmcv>=2.0.0rc4, <2.2.0'
+mim install 'mmdet>=3.0.0, <3.3.0'
+mim install "mmdet3d>=1.1.0"
 ```
 
 
