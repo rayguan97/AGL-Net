@@ -10,6 +10,9 @@ This is the code base and [dataset release](https://drive.google.com/file/d/1ek6
 [AGL-NET: Aerial-Ground Cross-Modal Global Localization with Varying Scales](https://arxiv.org/abs/2404.03187)
 <br> [Tianrui Guan*](https://tianruiguan.phd), [Ruiqi Xian∗](https://ricky-xian.github.io/), Xijun Wang, Xiyang Wu, Mohamed Elnoor, Daeun Song, Dinesh Manocha
 
+# The repo is still being updated. Please stay tuned for the training and experiments on KITTI dataset.
+
+
 <img src="./assets/cover.png" width="276"> 
 <img src="./assets/network.png" width="560">
 
